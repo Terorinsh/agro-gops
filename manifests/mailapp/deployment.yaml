@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mailapp
+  labels:
+    app: mailapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mailapp
+  template:
+    metadata:
+      labels:
+        app: mailapp
+    spec:
+      containers:
+        - name: web
+          image: ghcr.io/terorinsh/mailapp:main
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
