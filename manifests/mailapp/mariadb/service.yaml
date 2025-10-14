@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mariadb
+  namespace: mailapp
+labels:
+  app: mariadb
+spec:
+  type: ClusterIP
+  ports:
+    - name: mysql
+      port: 3306
+      targetPort: 3306
+  selector:
+    app: mariadb
