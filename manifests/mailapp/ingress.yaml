@@ -10,11 +10,11 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - mailenergo.lv
-        - www.mailenergo.lv
-      secretName: mailenergo-tls
+        - cake.lv
+        - www.cake.lv
+      secretName: cake-tls
   rules:
-    - host: mailenergo.lv
+    - host: cake.lv
       http:
         paths:
           - path: /
@@ -24,7 +24,7 @@ spec:
                 name: mailapp
                 port:
                   number: 80
-    - host: www.mailenergo.lv
+    - host: www.cake.lv
       http:
         paths:
           - path: /

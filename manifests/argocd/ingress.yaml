@@ -12,10 +12,10 @@ metadata:
 spec:
   ingressClassName: nginx
   tls:
-    - hosts: [argo.mailenergo.lv]
+    - hosts: [argo.cake.lv]
       secretName: argocd-tls
   rules:
-    - host: argo.mailenergo.lv
+    - host: argo.cake.lv
       http:
         paths:
           - path: /
