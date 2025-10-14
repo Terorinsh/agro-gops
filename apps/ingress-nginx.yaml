@@ -25,8 +25,13 @@ spec:
               https: 443
 
           service:
-            enabled: true
-            type: ClusterIP
+            enabled: false
+            # enabled: true
+            # type: ClusterIP
+
+          config:
+            use-forwarded-headers: "true"
+            compute-full-forwarded-for: "true"
 
         defaultBackend:
           enabled: true
