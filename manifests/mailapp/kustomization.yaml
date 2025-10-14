@@ -4,7 +4,9 @@ resources:
   - mariadb/service.yaml
   - mariadb/statefulset.yaml
   - mariadb/sealedsecret.yaml
+  - wordpress/pvc.yaml
+  - wordpress/deployment.yaml
+  - wordpress/service.yaml
+  - wordpress/sealedsecret.yaml
   - namespace.yaml
-  - deployment.yaml
-  - service.yaml
   - ingress.yaml

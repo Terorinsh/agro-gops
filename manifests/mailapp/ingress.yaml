@@ -22,7 +22,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: mailapp
+                name: wordpress
                 port:
                   number: 80
     - host: www.cake.lv
@@ -32,6 +32,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: mailapp
+                name: wordpress
                 port:
                   number: 80

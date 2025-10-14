@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress
+  namespace: mailapp
+  labels: { app: wordpress }
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: wordpress }
+  template:
+    metadata:
+      labels: { app: wordpress }
+    spec:
+      containers:
+        - name: wordpress
+          image: wordpress:6.7-php8.3-apache
+          ports:
+            - containerPort: 80
+          env:
+            - name: WORDPRESS_DB_HOST
+              value: mariadb.mailapp.svc.cluster.local:3306
+            - name: WORDPRESS_DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: wp-db
+                  key: MYSQL_DATABASE
+            - name: WORDPRESS_DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: wp-db
+                  key: MYSQL_USER
+            - name: WORDPRESS_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: wp-db
+                  key: MYSQL_PASSWORD
+          readinessProbe:
+            httpGet: { path: /wp-login.php, port: 80 }
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+            httpGet: { path: /, port: 80 }
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          volumeMounts:
+            - name: wpdata
+              mountPath: /var/www/html
+      volumes:
+        - name: wpdata
+          persistentVolumeClaim:
+            claimName: wordpress-data
