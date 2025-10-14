@@ -1,21 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: mailapp
+  name: argocd-expose
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/Terorinsh/agro-gops.git
     targetRevision: main
-    path: manifests/mailapp
-    kustomize: {}
+    path: manifests/argocd
   destination:
     server: https://kubernetes.default.svc
-    namespace: mailapp
+    namespace: argocd
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
